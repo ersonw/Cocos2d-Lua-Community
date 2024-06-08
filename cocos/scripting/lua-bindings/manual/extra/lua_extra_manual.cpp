@@ -7,12 +7,16 @@ static int tolua_Cocos2d_Function_loadChunksFromZIP(lua_State* tolua_S)
 {
     return cocos2d::LuaEngine::getInstance()->getLuaStack()->luaLoadChunksFromZIP(tolua_S);
 }
-
+static int tolua_Cocos2d_Function_executeString(lua_State* tolua_S)
+{
+    return cocos2d::LuaEngine::getInstance()->getLuaStack()->luaExecuteString(tolua_S);
+}
 static void cc_extend_functions(lua_State* tolua_S)
 {
     tolua_module(tolua_S,"cc",0);
     tolua_beginmodule(tolua_S,"cc");
     tolua_function(tolua_S, "LuaLoadChunksFromZIP", tolua_Cocos2d_Function_loadChunksFromZIP);
+    tolua_function(tolua_S, "LuaExecuteString", tolua_Cocos2d_Function_executeString);
     tolua_endmodule(tolua_S);
 }
 

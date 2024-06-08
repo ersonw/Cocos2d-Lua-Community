@@ -53,6 +53,7 @@ extern "C" {
 #include "scripting/lua-bindings/auto/lua_cocos2dx_backend_auto.hpp"
 #include "base/ZipUtils.h"
 #include "platform/CCFileUtils.h"
+#include "CCLuaEngine.h"
 
 namespace {
     int get_string_for_print(lua_State * L, std::string* out)
@@ -650,7 +651,18 @@ int LuaStack::loadChunksFromZIP(const char *zipFilePath)
     lua_pop(_state, 1);
     return ret;
 }
+int LuaStack::luaExecuteString(lua_State *L){
+    if (lua_gettop(L) < 1) {
+        CCLOG("luaExecuteString() - invalid arguments");
+        lua_pushboolean(L, 0);
+        return 1;
+    }
 
+    const char *executeString = lua_tostring(L, -1);
+    lua_settop(L, 0);
+    LuaEngine::getInstance()->executeString(executeString);
+    return 1;
+}
 int LuaStack::luaLoadChunksFromZIP(lua_State *L)
 {
     if (lua_gettop(L) < 1) {

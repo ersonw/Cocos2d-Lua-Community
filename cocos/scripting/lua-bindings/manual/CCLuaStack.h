@@ -313,6 +313,7 @@ public:
      * @return 1 if load successfully otherwise 0.
      */
     int luaLoadChunksFromZIP(lua_State *L);
+    int luaExecuteString(lua_State *L);
     
 protected:
     LuaStack()
